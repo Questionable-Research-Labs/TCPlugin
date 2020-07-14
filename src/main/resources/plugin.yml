@@ -1,9 +1,10 @@
-name: TCPlugin
+name: ${artifactId}
 version: ${project.version}
-main: me.nathan.tcplugin.TcPlugin
+main: me.nathan.tcPlugin.TCPlugin
 api-version: 1.16
-authors: [LaSpruca]
+author: LaSpruca
 description: The offical technocraft plugin
+depend: [AdvancedBan]
 website: qrl.nz
 commands:
   givebaton:

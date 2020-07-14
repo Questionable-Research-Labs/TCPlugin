@@ -1,8 +1,8 @@
-package me.nathan.tcplugin.commands;
+package me.nathan.tcPlugin.commands;
 
 import org.bukkit.command.*;
 import net.md_5.bungee.api.chat.*;
-import me.nathan.tcplugin.TCPlugin;
+import me.nathan.tcPlugin.TCPlugin;
 
 import static org.bukkit.ChatColor.*;
 

@@ -1,8 +1,9 @@
-package me.nathan.tcplugin;
+package me.nathan.tcPlugin;
 
-import me.nathan.tcplugin.checkers.*;
-import me.nathan.tcplugin.commands.*;
-import me.nathan.tcplugin.player_logger.*;
+import me.nathan.tcPlugin.chat.FidgetSpinner;
+import me.nathan.tcPlugin.checkers.*;
+import me.nathan.tcPlugin.commands.*;
+import me.nathan.tcPlugin.player_logger.*;
 
 import java.util.*;
 import java.util.logging.Logger;
@@ -28,7 +29,7 @@ public class TCPlugin extends JavaPlugin{
 
         // Register Commands
         Objects.requireNonNull(getCommand("givebaton")).setExecutor(new GiveBaton());
-        Objects.requireNonNull(getCommand("bee")).setExecutor(new me.nathan.tcplugin.commands.Bee());
+        Objects.requireNonNull(getCommand("bee")).setExecutor(new me.nathan.tcPlugin.commands.Bee());
         Objects.requireNonNull(getCommand("discord")).setExecutor(new Discord());
 
         // Load blocks from config file
@@ -41,6 +42,7 @@ public class TCPlugin extends JavaPlugin{
         registerEvent(new PlayerJoin());
         registerEvent(new Fluids());
         registerEvent(new Eggnog());
+        registerEvent(new FidgetSpinner());
 
         // Create an event that will give the discord link to all players
         new BukkitRunnable(){

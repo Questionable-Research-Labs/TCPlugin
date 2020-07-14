@@ -1,7 +1,7 @@
-package me.nathan.tcplugin.checkers;
+package me.nathan.tcPlugin.checkers;
 
-import me.nathan.tcplugin.Items;
-import me.nathan.tcplugin.player_logger.PlayerLogger;
+import me.nathan.tcPlugin.Items;
+import me.nathan.tcPlugin.player_logger.PlayerLogger;
 
 import org.bukkit.event.*;
 import org.bukkit.Material;
@@ -14,7 +14,7 @@ import org.bukkit.entity.HumanEntity;
 
 import java.util.*;
 
-import static me.nathan.tcplugin.TCPlugin.logger;
+import static me.nathan.tcPlugin.TCPlugin.logger;
 
 
 public class Chests implements Listener {

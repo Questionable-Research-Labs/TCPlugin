@@ -1,6 +1,6 @@
-package me.nathan.tcplugin.checkers;
+package me.nathan.tcPlugin.checkers;
 
-import me.nathan.tcplugin.TCPlugin;
+import me.nathan.tcPlugin.TCPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

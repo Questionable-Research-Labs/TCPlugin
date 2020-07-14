@@ -1,12 +1,12 @@
-package me.nathan.tcplugin.checkers;
+package me.nathan.tcPlugin.checkers;
 
-import me.nathan.tcplugin.player_logger.PlayerLogger;
+import me.nathan.tcPlugin.player_logger.PlayerLogger;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.event.player.PlayerBucketFillEvent;
 
-import static me.nathan.tcplugin.TCPlugin.logger;
+import static me.nathan.tcPlugin.TCPlugin.logger;
 
 public class Fluids implements Listener {
 	@EventHandler

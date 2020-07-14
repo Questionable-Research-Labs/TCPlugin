@@ -1,6 +1,6 @@
-package me.nathan.tcplugin.player_logger;
+package me.nathan.tcPlugin.player_logger;
 
-import me.nathan.tcplugin.commands.Discord;
+import me.nathan.tcPlugin.commands.Discord;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;

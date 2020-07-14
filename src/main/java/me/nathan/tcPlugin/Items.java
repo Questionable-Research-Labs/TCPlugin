@@ -1,4 +1,4 @@
-package me.nathan.tcplugin;
+package me.nathan.tcPlugin;
 
 import org.bukkit.Material;
 

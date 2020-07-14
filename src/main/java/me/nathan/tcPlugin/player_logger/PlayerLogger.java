@@ -1,14 +1,14 @@
-package me.nathan.tcplugin.player_logger;
+package me.nathan.tcPlugin.player_logger;
 
 import org.bukkit.*;
-import me.nathan.tcplugin.TCPlugin;
+import me.nathan.tcPlugin.TCPlugin;
 import org.bukkit.event.inventory.InventoryType;
 
 import java.io.*;
 import java.util.*;
 import java.time.LocalDateTime;
 
-import static me.nathan.tcplugin.TCPlugin.logger;
+import static me.nathan.tcPlugin.TCPlugin.logger;
 
 public class PlayerLogger {
     static TCPlugin plugin = TCPlugin.getPlugin(TCPlugin.class);

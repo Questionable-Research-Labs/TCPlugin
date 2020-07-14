@@ -1,4 +1,4 @@
-package me.nathan.tcplugin.commands;
+package me.nathan.tcPlugin.commands;
 
 import org.bukkit.command.*;
 

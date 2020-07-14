@@ -1,14 +1,14 @@
-package me.nathan.tcplugin.checkers;
+package me.nathan.tcPlugin.checkers;
 
 
 import org.bukkit.Material;
 import org.bukkit.event.block.*;
 import org.bukkit.event.Listener;
 import org.bukkit.event.EventHandler;
-import me.nathan.tcplugin.player_logger.PlayerLogger;
+import me.nathan.tcPlugin.player_logger.PlayerLogger;
 
 
-import static me.nathan.tcplugin.TCPlugin.*;
+import static me.nathan.tcPlugin.TCPlugin.*;
 
 public class Blocks implements Listener {
 

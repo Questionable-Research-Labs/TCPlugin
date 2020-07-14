@@ -1,6 +1,6 @@
-package me.nathan.tcplugin.commands;
+package me.nathan.tcPlugin.commands;
 
-import me.nathan.tcplugin.TCPlugin;
+import me.nathan.tcPlugin.TCPlugin;
 
 import org.bukkit.*;
 import org.bukkit.command.*;
