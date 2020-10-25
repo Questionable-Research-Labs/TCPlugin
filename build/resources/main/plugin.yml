@@ -1,7 +1,0 @@
-name: TCPlugin
-version: ${project.version}
-main: me.nathan.tcplugin.TCPlugin
-api-version: 1.16
-authors: [ laspruca ]
-description: The Offical TC Plugin
-website: qrl.nz

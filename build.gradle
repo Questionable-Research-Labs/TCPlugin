@@ -7,6 +7,8 @@ plugins {
 repositories {
     mavenLocal()
     jcenter()
+    maven { url 'https://jitpack.io' }
+
     maven {
         url = uri('https://repo1.maven.org/maven2')
     }
@@ -27,9 +29,10 @@ repositories {
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.16.3-R0.1-SNAPSHOT'
     implementation "com.discord4j:discord4j-core:3.1.1"
+    implementation 'com.github.DevLeoko:AdvancedBan:2.2.1'
 }
 
-group = 'me.nathan'
+group = 'org.qrl'
 version = '1.0-SNAPSHOT'
 description = 'TCPlugin'
 sourceCompatibility = '1.8'
