@@ -1,17 +1,20 @@
 package org.qrl.tcplugin;
 
-import tk.laspruca.tcplugin.*;
+import nz.laspruca.tcplugin.*;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
 
 public final class TCPlugin extends JavaPlugin {
-	public static final TCPlugin PLUGIN = TCPlugin.getPlugin(TCPlugin.class);
-	public static final Logger LOGGER = PLUGIN.getLogger();
+	public static TCPlugin plugin;
+	public static Logger logger;
 
 	@Override
 	public void onEnable() {
+		plugin = TCPlugin.getPlugin(TCPlugin.class);
+		logger = plugin.getLogger();
+		saveDefaultConfig();
 		Plugin.onEnable();
 	}
 

@@ -1,18 +1,8 @@
-name: ${artifactId}
+name: TCPlugin
 version: ${project.version}
-main: org.qrl.tcpluing.TCPluginMain
+main: org.qrl.tcplugin.TCPlugin
 api-version: 1.16
-author: LaSpruca
-description: The offical technocraft plugin
 depend: [ AdvancedBan ]
+authors: [ Nathan ]
+description: The offical TCPlugin
 website: qrl.nz
-commands:
-  givebaton:
-    usage: /givebaton [player]
-    description: Gives a player a TCPD batton, brrr
-  discord:
-    usage: /discord
-    description: Gives you the Technocraft Discord Information
-  bee:
-    usage: According to all known laws of aviation, there is no way that a bee should be able to fly.
-    description: According to all known laws of aviation, there is no way that a bee should be able to fly.
