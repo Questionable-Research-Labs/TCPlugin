@@ -16,6 +16,7 @@ import static org.qrl.tcplugin.TCPlugin.*;
 
 import java.util.Objects;
 
+@nz.laspruca.tcplugin.Command(name = "givebaton")
 public class GiveBaton implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {

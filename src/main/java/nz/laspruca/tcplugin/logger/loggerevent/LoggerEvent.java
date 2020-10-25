@@ -9,7 +9,7 @@ public abstract class LoggerEvent {
 
 	public LoggerEvent(String playerName) {
 		player = playerName;
-		result = "{" + DateGetter.getDate() + "}";
+		result = "[" + DateGetter.getDate() + "] ";
 	}
 
 	public void log() {

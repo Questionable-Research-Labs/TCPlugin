@@ -6,6 +6,7 @@ import org.bukkit.command.*;
 
 import static org.bukkit.ChatColor.*;
 
+@nz.laspruca.tcplugin.Command(name = "discord")
 public class DiscordCommand implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {

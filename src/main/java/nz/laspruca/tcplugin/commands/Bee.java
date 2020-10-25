@@ -4,6 +4,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
+import static org.qrl.tcplugin.TCPlugin.logger;
+
+@nz.laspruca.tcplugin.Command(name = "bee")
 public class Bee implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {

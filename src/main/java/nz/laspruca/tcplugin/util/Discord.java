@@ -22,6 +22,7 @@ public class Discord {
 //			goBrr = false;
 //		}
 		goBrr = false;
+		logger.info("Discord has been disabled due to problems with Discord4J");
 	}
 
 	public void exitDiscord() {

@@ -66,11 +66,6 @@
 
     <repositories>
         <repository>
-            <id>jitpack</id>
-            <url>https://jitpack.io</url>
-        </repository>
-        
-        <repository>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
@@ -105,9 +100,15 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.DevLeoko</groupId>
+            <groupId>me.leoko.advancedban</groupId>
             <artifactId>AdvancedBan</artifactId>
-            <version>2.2.1</version>
+            <version>2.1.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.9.12</version>
         </dependency>
     </dependencies>
 </project>
