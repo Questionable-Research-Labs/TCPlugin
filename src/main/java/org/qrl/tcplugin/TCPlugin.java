@@ -1,6 +1,7 @@
 package org.qrl.tcplugin;
 
 import nz.laspruca.tcplugin.*;
+import org.bukkit.configuration.file.*;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.qrl.tcplugin.annotations.*;
@@ -15,11 +16,14 @@ public final class TCPlugin extends JavaPlugin {
 	public List<Class<?>> components = new ArrayList<>();
 	public static TCPlugin plugin;
 	public static Logger logger;
+	public static FileConfiguration config;
+
 
 	@Override
 	public void onEnable() {
 		plugin = TCPlugin.getPlugin(TCPlugin.class);
 		logger = plugin.getLogger();
+		config = plugin.getConfig();
 		saveDefaultConfig();
 		registerComponents();
 		for (Class<?> component : components) {

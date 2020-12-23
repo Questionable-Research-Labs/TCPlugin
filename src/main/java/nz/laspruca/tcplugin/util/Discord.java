@@ -1,33 +1,48 @@
 package nz.laspruca.tcplugin.util;
 
-import discord4j.core.DiscordClient;
-import discord4j.core.GatewayDiscordClient;
-import discord4j.core.object.entity.Member;
+import net.dv8tion.jda.api.*;
+import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.events.*;
+import net.dv8tion.jda.api.hooks.*;
+import net.dv8tion.jda.api.requests.*;
+import net.dv8tion.jda.api.utils.cache.*;
+import org.jetbrains.annotations.*;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
+import javax.security.auth.login.*;
+import java.util.*;
+import java.util.stream.*;
 
 import static org.qrl.tcplugin.TCPlugin.*;
 
-public class Discord {
-	public GatewayDiscordClient gateway;
-	private boolean goBrr = true;
+public class Discord extends ListenerAdapter {
+	public JDA jda;
+	private boolean goBrr = false;
 
-	public Discord(String token) {
-//		DiscordClient client = DiscordClient.builder(token).build();
-//		gateway = client.login().block();
-//		if (gateway == null) {
-//			logger.warning("Unable to connect to discord, oh fucking well");
-//			goBrr = false;
-//		}
-		goBrr = false;
-		logger.info("Discord has been disabled due to problems with Discord4J");
+	public Discord() {
+		if (config.getString("prefix") == null) {
+			logger.warning("No prefix set, setting to default");
+			config.set("prefix", "setme");
+		}
+		try {
+			jda = JDABuilder.createDefault(config.getString("discordToken"))
+					.disableCache(CacheFlag.MEMBER_OVERRIDES, CacheFlag.VOICE_STATE)
+					.enableIntents(GatewayIntent.GUILD_MEMBERS)
+					.setActivity(Activity.of(Activity.ActivityType.WATCHING, "TechnoCraft Servers"))
+					.addEventListeners(this, new DiscordMessageListener())
+					.build();
+		} catch (LoginException ex) {
+			logger.warning("Unable to initialize discord api, invalid login token");
+		}
 	}
 
-	public void exitDiscord() {
+	public void exitDiscord() throws InterruptedException {
 		if (goBrr) {
-			gateway.logout();
+			sendMessage("Shutting down");
+
+			Thread.sleep(100);
+
+			jda.shutdownNow();
+			jda.awaitStatus(JDA.Status.SHUTDOWN);
 		}
 	}
 
@@ -36,19 +51,41 @@ public class Discord {
 	}
 
 	public List<String> getMembers() throws IllegalStateException {
-		if (goBrr)
-			return Objects.requireNonNull(Objects.requireNonNull(gateway
-					.getGuilds()
-					.collect(Collectors.toList())
-					.block())
+		if (goBrr) {
+			return jda
+					.getGuildsByName("technocraft", true)
 					.get(0)
 					.getMembers()
-					.collect(Collectors.toList())
-					.block())
 					.stream()
-					.map(Member::getDisplayName)
+					.map(Member::getNickname)
 					.collect(Collectors.toList());
-		else
+		} else {
 			throw new IllegalStateException("No valid connection to discord");
+		}
+	}
+
+	@Override
+	public void onReady(@NotNull ReadyEvent event) {
+		super.onReady(event);
+
+		goBrr = true;
+
+		sendMessage("Server started");
+	}
+
+
+	public void sendMessage(String message) {
+		sendMessage(new EmbedBuilder().addField(message, "", true));
+	}
+
+	public void sendMessage(EmbedBuilder message) {
+		if (goBrr) {
+			Objects.requireNonNull(jda.getGuildsByName("technocraft", true)
+					.get(0)
+					.getTextChannelById("791082936609931264"))
+					.sendMessage(message.setAuthor(config.getString("prefix")).build())
+					.queue();
+		}
 	}
 }
+

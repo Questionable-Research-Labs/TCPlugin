@@ -1,11 +1,10 @@
 package nz.laspruca.tcplugin;
 
-import reactor.util.annotation.*;
-
+import javax.annotation.*;
 import java.lang.annotation.*;
 
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Command {
-	@NonNull
+	@Nonnull
 	String name() default  "";
 }

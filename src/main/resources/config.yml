@@ -30,3 +30,7 @@ blocks-placed:
 
 # This is where your discord token goes for discord integration
 discordToken: "abcdefghijklmnopqrstuvwxyz123456789"
+
+# This is the prefix used for issuing commands via discord, can not contain spaces,
+#   ideally this should be your server name
+prefix: "setme"
