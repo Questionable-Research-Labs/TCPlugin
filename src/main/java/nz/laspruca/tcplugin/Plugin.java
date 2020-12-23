@@ -26,6 +26,9 @@ public class Plugin {
 		discord = new Discord();
 		plugin.registerEvent(new PlayerJoinLeave());
 		plugin.registerEvent(new InventoryInteract());
+		plugin.registerEvent(new BlockPlaceBreak());
+		BlockPlaceBreak.loadBlocks();
+
 
 		new BukkitRunnable() {
 			@Override

@@ -25,6 +25,8 @@ blocks-break:
   - "ACACIA_DOOR"
   - "DARK_OAK_DOOR"
   - "IRON_DOOR"
+  - "CHEST"
+  - "BARREL"
 blocks-placed:
 # This is where blocks broken will go
 

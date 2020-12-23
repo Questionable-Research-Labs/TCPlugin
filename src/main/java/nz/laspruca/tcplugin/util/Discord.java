@@ -19,6 +19,7 @@ public class Discord extends ListenerAdapter {
 	private boolean goBrr = false;
 
 	public Discord() {
+		logger.info("Starting Discord");
 		if (config.getString("prefix") == null) {
 			logger.warning("No prefix set, setting to default");
 			config.set("prefix", "setme");
