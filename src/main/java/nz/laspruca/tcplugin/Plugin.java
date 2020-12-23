@@ -10,6 +10,7 @@ import org.bukkit.scheduler.*;
 import org.qrl.tcplugin.annotations.*;
 import org.reflections.*;
 
+import java.io.*;
 import java.lang.reflect.*;
 import java.util.*;
 
@@ -19,6 +20,7 @@ import static org.qrl.tcplugin.TCPlugin.*;
 public class Plugin {
 	public static Discord discord;
 	public static boolean baton;
+	public static boolean hardcore;
 
 	@TCPluginComponentInit
 	public static void onEnable() {
@@ -27,7 +29,11 @@ public class Plugin {
 		plugin.registerEvent(new PlayerJoinLeave());
 		plugin.registerEvent(new InventoryInteract());
 		plugin.registerEvent(new BlockPlaceBreak());
+		plugin.registerEvent(new PlayerDie());
 		BlockPlaceBreak.loadBlocks();
+
+		baton = config.getBoolean("givebaton");
+		hardcore = config.getBoolean("hardcore");
 
 
 		new BukkitRunnable() {
@@ -51,6 +57,15 @@ public class Plugin {
 
 	@TCPluginComponentShutdown
 	public static void onDisable() {
+		config.set("givebaton", baton);
+		config.set("hardcore", hardcore);
+
+		try {
+			config.save(plugin.getDataFolder() + "/config.yml");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		try {
 			discord.exitDiscord();
 		} catch (java.lang.InterruptedException ex) {

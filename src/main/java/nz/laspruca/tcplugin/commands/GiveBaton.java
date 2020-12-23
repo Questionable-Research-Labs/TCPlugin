@@ -21,6 +21,7 @@ import java.util.Objects;
 public class GiveBaton implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
+		System.out.println(baton);
 		if (baton) {
 			int argslen = 0;
 
@@ -47,12 +48,12 @@ public class GiveBaton implements CommandExecutor {
 					}
 				}
 			}
+		} else {
+			commandSender.sendMessage(
+					ChatColor.RED.toString() +
+							ChatColor.BOLD.toString() +
+							"GIVE BATON HAD BEEN DISABLED BY ORDER OF THE 05 COUNCIL");
 		}
-
-		commandSender.sendMessage(
-				ChatColor.RED.toString() +
-						ChatColor.BOLD.toString() +
-						"GIVE BATON HAD BEEN DISABLED BY ORDER OF THE 05 COUNCIL");
 
 		return true;
 	}

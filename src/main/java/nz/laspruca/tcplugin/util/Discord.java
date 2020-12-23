@@ -40,10 +40,7 @@ public class Discord extends ListenerAdapter {
 		if (goBrr) {
 			sendMessage("Shutting down");
 
-			Thread.sleep(100);
-
-			jda.shutdownNow();
-			jda.awaitStatus(JDA.Status.SHUTDOWN);
+			jda.shutdown();
 		}
 	}
 
