@@ -22,6 +22,7 @@ import static org.qrl.tcplugin.TCPlugin.*;
 @TCPluginComponent
 public class Plugin {
 	public static Discord discord;
+	public static boolean baton;
 
 	@TCPluginComponentInit
 	public static void onEnable() {
@@ -34,7 +35,6 @@ public class Plugin {
 			public void run() {
 				try {
 					List<String> discordUsers = discord.getMembers();
-					System.out.println(discordUsers);
 					for (Player player : plugin.getServer().getOnlinePlayers()) {
 						if (!discordUsers.contains(player.getDisplayName())) {
 							player.spigot().sendMessage(DiscordCommand.generateText());
@@ -45,7 +45,7 @@ public class Plugin {
 				}
 			}
 		}.runTaskTimerAsynchronously(
-				plugin, 200, 200
+				plugin, 36_000, 36_000
 		);
 
 		registerCommands();

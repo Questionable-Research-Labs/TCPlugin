@@ -55,9 +55,10 @@ public class Discord extends ListenerAdapter {
 			return jda
 					.getGuildsByName("technocraft", true)
 					.get(0)
-					.getMembers()
+					.loadMembers()
+					.get()
 					.stream()
-					.map(Member::getNickname)
+					.map(a -> a.getNickname() == null ? a.getUser().getName() : a.getNickname())
 					.collect(Collectors.toList());
 		} else {
 			throw new IllegalStateException("No valid connection to discord");

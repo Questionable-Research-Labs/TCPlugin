@@ -57,6 +57,11 @@ public class DiscordMessageListener extends ListenerAdapter {
 						plugin.getServer().shutdown();
 						break;
 
+					case "t_givebaton":
+						baton = !baton;
+						discord.sendMessage(baton ? "Enable /givebaton" : "Disabled /givebaton");
+						break;
+
 					case "help":
 						discord.sendMessage(new EmbedBuilder()
 								.setTitle("Help for TCPlugin discord commands")

@@ -9,7 +9,7 @@ website: qrl.nz
 commands:
   givebaton:
     usage: /givebaton [player]
-    description: Gives a player a TCPD batton, brrr
+    description: Gives a player a TCPD baton, brrr
   discord:
     usage: /discord
     description: Gives you the Technocraft Discord Information
