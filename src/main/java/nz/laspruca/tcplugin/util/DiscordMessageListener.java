@@ -63,6 +63,11 @@ public class DiscordMessageListener extends ListenerAdapter {
 						discord.sendMessage(baton ? "Enable /givebaton" : "Disabled /givebaton");
 						break;
 
+					case "t_hardcore":
+						hardcore = !hardcore;
+						discord.sendMessage(hardcore ? "Server is in Hardcore mode" : "Server is in normal mode");
+						break;
+
 					case "online":
 						Collection<? extends Player> onlinePlayers = plugin.getServer().getOnlinePlayers();
 						discord.sendMessage(
