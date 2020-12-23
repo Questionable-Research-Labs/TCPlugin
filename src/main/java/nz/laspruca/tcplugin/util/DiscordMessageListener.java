@@ -22,7 +22,7 @@ public class DiscordMessageListener extends ListenerAdapter {
 
 		String message = event.getMessage().getContentStripped();
 
-		if (!event.getAuthor().isBot() && message.startsWith("\\")) {
+		if (!event.getAuthor().isBot() && message.startsWith("\\") && event.getChannel().getId().equals("791082936609931264")) {
 			List<String> splits = Arrays.asList(message.split(" "));
 
 			if (splits.size() > 1 && splits.get(0).equals("\\" + config.getString("prefix"))) {
