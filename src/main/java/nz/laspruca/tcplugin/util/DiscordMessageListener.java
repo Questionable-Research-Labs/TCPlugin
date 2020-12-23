@@ -3,6 +3,7 @@ package nz.laspruca.tcplugin.util;
 import net.dv8tion.jda.api.*;
 import net.dv8tion.jda.api.events.message.*;
 import net.dv8tion.jda.api.hooks.*;
+import org.bukkit.entity.*;
 import org.jetbrains.annotations.*;
 
 import java.awt.*;
@@ -60,6 +61,15 @@ public class DiscordMessageListener extends ListenerAdapter {
 					case "t_givebaton":
 						baton = !baton;
 						discord.sendMessage(baton ? "Enable /givebaton" : "Disabled /givebaton");
+						break;
+
+					case "online":
+						Collection<? extends Player> onlinePlayers = plugin.getServer().getOnlinePlayers();
+						discord.sendMessage(
+								new EmbedBuilder()
+										.setTitle(plugin.getServer().getOnlinePlayers().size() + " Online")
+								.addField("Players ", onlinePlayers.stream().map(Player::getDisplayName).collect(Collectors.joining(", ")), false)
+						);
 						break;
 
 					case "help":

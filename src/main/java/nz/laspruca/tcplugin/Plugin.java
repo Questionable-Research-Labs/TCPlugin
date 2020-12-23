@@ -5,17 +5,13 @@ import nz.laspruca.tcplugin.eventlistners.*;
 import nz.laspruca.tcplugin.logger.*;
 import nz.laspruca.tcplugin.util.*;
 import org.bukkit.command.*;
-import org.bukkit.configuration.file.*;
 import org.bukkit.entity.*;
 import org.bukkit.scheduler.*;
 import org.qrl.tcplugin.annotations.*;
 import org.reflections.*;
 
-import java.io.*;
 import java.lang.reflect.*;
 import java.util.*;
-import java.util.logging.*;
-import java.util.stream.*;
 
 import static org.qrl.tcplugin.TCPlugin.*;
 
@@ -29,6 +25,7 @@ public class Plugin {
 		PlayerLogger.init();
 		discord = new Discord();
 		plugin.registerEvent(new PlayerJoinLeave());
+		plugin.registerEvent(new InventoryInteract());
 
 		new BukkitRunnable() {
 			@Override
@@ -44,9 +41,7 @@ public class Plugin {
 					ex.printStackTrace();
 				}
 			}
-		}.runTaskTimerAsynchronously(
-				plugin, 36_000, 36_000
-		);
+		}.runTaskTimerAsynchronously(plugin, 36_000, 36_000);
 
 		registerCommands();
 	}
