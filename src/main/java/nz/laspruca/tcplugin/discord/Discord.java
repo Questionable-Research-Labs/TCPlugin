@@ -44,7 +44,7 @@ public class Discord extends ListenerAdapter {
 		}
 	}
 
-	public boolean logedIn() {
+	public boolean loggedIn() {
 		return this.goBrr;
 	}
 
@@ -72,6 +72,19 @@ public class Discord extends ListenerAdapter {
 		sendMessage("Server started");
 	}
 
+	public void sendMessageToChannel(String message, String channelID) {
+		sendMessageToChannel(new EmbedBuilder().addField(message, "", true), channelID);
+	}
+
+	public void sendMessageToChannel(EmbedBuilder message, String channelID) {
+		if (goBrr) {
+			Objects.requireNonNull(jda.getGuildsByName("technocraft", true)
+					.get(0)
+					.getTextChannelById(channelID))
+					.sendMessage(message.setAuthor(config.getString("prefix")).build())
+					.queue();
+		}
+	}
 
 	public void sendMessage(String message) {
 		sendMessage(new EmbedBuilder().addField(message, "", true));
