@@ -9,6 +9,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.*;
 
 import java.util.ArrayList;
 
@@ -20,7 +21,7 @@ import java.util.Objects;
 @nz.laspruca.tcplugin.Command(name = "givebaton")
 public class GiveBaton implements CommandExecutor {
 	@Override
-	public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
+	public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, String[] args) {
 		System.out.println(baton);
 		if (baton) {
 			int argslen = 0;

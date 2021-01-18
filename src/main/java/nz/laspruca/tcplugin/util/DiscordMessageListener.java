@@ -1,4 +1,4 @@
-package nz.laspruca.tcplugin.util;
+package nz.laspruca.tcplugin.discord;
 
 import net.dv8tion.jda.api.*;
 import net.dv8tion.jda.api.events.message.*;
@@ -58,6 +58,23 @@ public class DiscordMessageListener extends ListenerAdapter {
 						plugin.getServer().shutdown();
 						break;
 
+					case "online":
+						Collection<? extends Player> onlinePlayers = plugin.getServer().getOnlinePlayers();
+						discord.sendMessage(
+								new EmbedBuilder()
+										.setTitle(plugin.getServer().getOnlinePlayers().size() + " Online")
+										.addField("Players ", onlinePlayers.stream().map(Player::getDisplayName).collect(Collectors.joining(", ")), false)
+						);
+						break;
+
+					case "info":
+						discord.sendMessage(new EmbedBuilder()
+								.setTitle("Info for " + config.getString("prefix"))
+								.addField("/givebaton", baton ? "Enabled" : "Disabled", true)
+								.addField("pseudo-hardcore mode", hardcore ? "Enabled" : "Disabled", true)
+								.addField("Death announcements", announceDeath ? "Enabled" : "Disabled", true));
+						break;
+
 					case "t_givebaton":
 						baton = !baton;
 						discord.sendMessage(baton ? "Enable /givebaton" : "Disabled /givebaton");
@@ -68,21 +85,25 @@ public class DiscordMessageListener extends ListenerAdapter {
 						discord.sendMessage(hardcore ? "Server is in Hardcore mode" : "Server is in normal mode");
 						break;
 
-					case "online":
-						Collection<? extends Player> onlinePlayers = plugin.getServer().getOnlinePlayers();
-						discord.sendMessage(
-								new EmbedBuilder()
-										.setTitle(plugin.getServer().getOnlinePlayers().size() + " Online")
-								.addField("Players ", onlinePlayers.stream().map(Player::getDisplayName).collect(Collectors.joining(", ")), false)
-						);
+					case "t_deathmsg":
+						announceDeath = !announceDeath;
+						discord.sendMessage(announceDeath ? "Enable death messages" : "Disabled death messages");
 						break;
 
 					case "help":
 						discord.sendMessage(new EmbedBuilder()
 								.setTitle("Help for TCPlugin discord commands")
-								.addField("shutdown", "Shutdown server\nNo args", false)
-								.addField("say", "Sends a message to the server\n\t**- 1..∞)** the message", false)
+								.addField("Syntax", "\\[server_prefix] [command] <args>", false)
+								.addBlankField(false)
+								.addField("shutdown", "Shutdown server", false)
 								.addField("prefix", "Sets the servers prefix\n\t**- 1)** the new prefix", false)
+								.addField("say", "Sends a message to the server\n\t**- 1..∞)** the message", false)
+								.addField("online", "Shows all the online players", false)
+								.addField("info", "Shows info about the server", false)
+								.addField("t_givebaton", "Enables/disables /givebaton", false)
+								.addField("t_hardcore", "Enables/disables pseudo-hardcore mode", false)
+								.addField("t_deathmsg", "Enables/disables announcements on death", false)
+								.addField("help", "Shows this", false)
 						);
 						break;
 

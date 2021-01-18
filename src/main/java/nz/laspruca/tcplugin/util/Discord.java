@@ -1,4 +1,4 @@
-package nz.laspruca.tcplugin.util;
+package nz.laspruca.tcplugin.discord;
 
 import net.dv8tion.jda.api.*;
 import net.dv8tion.jda.api.entities.*;

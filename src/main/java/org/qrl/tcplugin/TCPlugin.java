@@ -68,8 +68,7 @@ public final class TCPlugin extends JavaPlugin {
 		for (Class<?> tClass : classes) {
 			Method[] methods = tClass.getMethods();
 				if (Arrays.stream(methods)
-						.filter(method -> method.isAnnotationPresent(TCPluginComponentInit.class))
-						.collect(Collectors.toList()).size() < 1) {
+						.filter(method -> method.isAnnotationPresent(TCPluginComponentInit.class)).count() < 1) {
 					logger.severe("Class " + tClass.getName() + " does not contain any init methods");
 					break;
 				} else {

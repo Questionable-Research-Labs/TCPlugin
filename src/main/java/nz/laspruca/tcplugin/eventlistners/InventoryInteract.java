@@ -16,7 +16,7 @@ public class InventoryInteract implements Listener {
 	public static void onInventoryOpen(InventoryOpenEvent e) {
 		Inventory inventory = e.getInventory();
 		HumanEntity player = e.getPlayer();
-		chestInventories.put(player.getUniqueId(), collpase(Arrays.asList(inventory.getContents())));
+		chestInventories.put(player.getUniqueId(), collapse(Arrays.asList(inventory.getContents())));
 	}
 
 	@EventHandler
@@ -29,7 +29,7 @@ public class InventoryInteract implements Listener {
 			case BARREL:
 			case SHULKER_BOX:
 				HashMap<Material, Integer> opened = chestInventories.get(e.getPlayer().getUniqueId());
-				HashMap<Material, Integer> closed = collpase(Arrays.asList(e.getInventory().getContents()));
+				HashMap<Material, Integer> closed = collapse(Arrays.asList(e.getInventory().getContents()));
 
 				nz.laspruca.tcplugin.logger.loggerevent.InventoryInteractEvent log = new InventoryInteractEvent(player.getName(), inventory);
 
@@ -62,7 +62,7 @@ public class InventoryInteract implements Listener {
 	}
 
 
-	public static HashMap<Material, Integer> collpase(List<ItemStack> original) {
+	public static HashMap<Material, Integer> collapse(List<ItemStack> original) {
 		HashMap<Material, Integer> result = new HashMap<>();
 
 		for (ItemStack a : original) {

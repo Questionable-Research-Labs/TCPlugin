@@ -14,7 +14,7 @@ public class PlayerJoinLeave implements Listener {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		new JoinEvent(event.getPlayer().getDisplayName()).log();
-		if (discord.logedIn()) {
+		if (discord.loggedIn()) {
 			if (!discord.getMembers().contains(event.getPlayer().getDisplayName())) {
 				event.getPlayer().spigot().sendMessage(DiscordCommand.generateText());
 			}
