@@ -13,17 +13,16 @@ import java.io.IOException
  * Initializes the logger
  */
 fun init() {
-    File("${plugin!!.dataFolder}/logs").mkdir()
+    File("${plugin.dataFolder}/logs").mkdir()
 }
 
 /**
  * Used to log append a message to a players log file
  */
 private fun logEvent(playerName: String, msg: String) {
-    val f = File("${plugin!!.dataFolder}/logs/$playerName.txt}")
+    val f = File("${plugin.dataFolder}/logs/$playerName.txt}")
     try {
         f.createNewFile()
-
         f.bufferedWriter().use {
             it.append("\n$msg")
         }

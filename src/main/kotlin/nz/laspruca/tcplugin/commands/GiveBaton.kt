@@ -3,19 +3,17 @@ package nz.laspruca.tcplugin.commands
 import net.kyori.adventure.text.Component
 import nz.laspruca.tcplugin.Plugin.Companion.baton
 import org.bukkit.ChatColor
-import org.bukkit.enchantments.Enchantment
-import java.util.ArrayList
 import org.bukkit.Material
 import org.bukkit.command.Command
+import org.bukkit.command.CommandExecutor
+import org.bukkit.command.CommandSender
+import org.bukkit.enchantments.Enchantment
+import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.qrl.tcplugin.TCPlugin.Companion.plugin
-import org.bukkit.entity.Player
-import org.bukkit.command.CommandSender
-import org.bukkit.command.CommandExecutor
-import java.lang.Exception
 
 
-class GiveBaton() : CommandExecutor {
+class GiveBaton : CommandExecutor {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (baton) {
             var argslen = 0
@@ -23,20 +21,18 @@ class GiveBaton() : CommandExecutor {
                 argslen++
             }
             if (argslen < 1) {
-                plugin!!.server.getPlayer(sender.name)!!.inventory
+                plugin.server.getPlayer(sender.name)!!.inventory
                     .addItem(makeBonkyBoi())
             } else {
                 for (str: String in args) {
-                    if (str == "@a") {
-                        for (player: Player in plugin!!.server.onlinePlayers) {
+                    when (str) {
+                        "@a" -> for (player: Player in plugin.server.onlinePlayers) {
                             player.inventory.addItem(makeBonkyBoi())
                         }
-                    } else if (str == "@p") {
-                        plugin!!.server.getPlayer(sender.name)!!.inventory
+                        "@p" -> plugin.server.getPlayer(sender.name)!!.inventory
                             .addItem(makeBonkyBoi())
-                    } else {
-                        try {
-                            plugin!!.server.getPlayer(str)!!.inventory.addItem(makeBonkyBoi())
+                        else -> try {
+                            plugin.server.getPlayer(str)!!.inventory.addItem(makeBonkyBoi())
                         } catch (ignored: Exception) {
                             sender.sendMessage("Unable to find player $str")
                         }
@@ -54,12 +50,12 @@ class GiveBaton() : CommandExecutor {
     private fun makeBonkyBoi(): ItemStack {
         val `is` = ItemStack(Material.STICK, 1)
         val im = `is`.itemMeta
-        val lore = ArrayList<Component>()
-        lore.add(Component.text("THIS IS YOUR OFFICIAL TECHNOCRAFT POLICE DPT BATON"))
-        lore.add(Component.text("HAVE FUN"))
-        im.lore(lore)
+        im.lore(listOf<Component>(
+            Component.text("THIS IS YOUR OFFICIAL TECHNOCRAFT POLICE DPT BATON"),
+            Component.text("HAVE FUN")
+        ))
         im.addEnchant(Enchantment.KNOCKBACK, 1000, true)
-        im.displayName(Component.text(ChatColor.BLUE.toString() + ChatColor.BOLD.toString().toString() + "TCPD Baton"))
+        im.displayName(Component.text(ChatColor.BLUE.toString() + ChatColor.BOLD.toString() + "TCPD Baton"))
         `is`.itemMeta = im
         return `is`
     }

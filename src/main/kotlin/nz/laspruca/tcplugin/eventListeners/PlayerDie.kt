@@ -17,14 +17,14 @@ object PlayerDie : Listener {
     fun onPlayerDie(e: PlayerDeathEvent) {
         val player: HumanEntity = e.entity
         if (hardcore) {
-            plugin!!.server.dispatchCommand(
-                plugin!!.server.consoleSender,
+            plugin.server.dispatchCommand(
+                plugin.server.consoleSender,
                 "tempban " + player.name + " 12h You died"
             )
         }
-        logger?.info("Announce death is $announceDeath")
+        logger.info("Announce death is $announceDeath")
         if (announceDeath) {
-            logger?.info(player.name + " noped.")
+            logger.info(player.name + " noped.")
             val reason = e.deathMessage() as TranslatableComponent
             discord!!.sendMessageToChannel(
                 EmbedBuilder().setTitle(player.name + " Just died")

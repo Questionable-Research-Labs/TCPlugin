@@ -7,8 +7,7 @@ import nz.laspruca.tcplugin.commands.DiscordCommand
 import nz.laspruca.tcplugin.commands.GiveBaton
 import nz.laspruca.tcplugin.commands.generateText
 import nz.laspruca.tcplugin.discord.Discord
-import nz.laspruca.tcplugin.eventListeners.PlayerJoinLeave
-import nz.laspruca.tcplugin.eventListeners.loadBlocks
+import nz.laspruca.tcplugin.eventListeners.*
 import nz.laspruca.tcplugin.logger.init
 import org.bukkit.scheduler.BukkitRunnable
 import org.qrl.tcplugin.TCPlugin.Companion.config
@@ -29,16 +28,18 @@ class Plugin : TCPluginComponent {
         init()
 //        discord = Discord()
 
-        plugin?.registerEvent(PlayerJoinLeave)
-        plugin?.registerEvent(nz.laspruca.tcplugin.eventListeners.InventoryInteract)
-        plugin?.registerEvent(nz.laspruca.tcplugin.eventListeners.BlockPlaceBreak)
-        plugin?.registerEvent(nz.laspruca.tcplugin.eventListeners.PlayerDie)
+        plugin.apply {
+            plugin.registerEvent(PlayerJoinLeave)
+            plugin.registerEvent(InventoryInteract)
+            plugin.registerEvent(BlockPlaceBreak)
+            plugin.registerEvent(PlayerDie)
+        }
 
         loadBlocks()
 
-        baton = config!!.getBoolean("givebaton")
-        hardcore = config!!.getBoolean("hardcore")
-        announceDeath = config!!.getBoolean("announceDeath")
+        baton = config.getBoolean("givebaton")
+        hardcore = config.getBoolean("hardcore")
+        announceDeath = config.getBoolean("announceDeath")
 
         // Create event to notify people that they can join the discord if they are not already
 
@@ -46,32 +47,33 @@ class Plugin : TCPluginComponent {
         object : BukkitRunnable() {
             override fun run() {
                 try {
-                    val discordUsers = discord!!.getMembers()
-                    for (player in plugin!!.server.onlinePlayers) {
-                        if (!discordUsers.contains(player.name)) {
-                            player.sendMessage(Identity.nil(), generateText(), MessageType.CHAT)
-                        }
-                    }
+                   if (discord != null) {
+                       val discordUsers = discord!!.getMembers()
+                       for (player in plugin.server.onlinePlayers) {
+                           if (!discordUsers.contains(player.name)) {
+                               player.sendMessage(Identity.nil(), generateText(), MessageType.CHAT)
+                           }
+                       }
+                   }
                 } catch (ex: IllegalStateException) {
                     // This happens if discord failed to init
                     ex.printStackTrace()
                 }
             }
-        }.runTaskTimerAsynchronously(plugin!!, 36000, 36000)
-
-        plugin?.getCommand("givebaton")?.setExecutor(GiveBaton())
-        plugin?.getCommand("bee")?.setExecutor(Bee())
-        plugin?.getCommand("discord")?.setExecutor(DiscordCommand())
+        }.runTaskTimerAsynchronously(plugin, 36000, 36000)
+        plugin.getCommand("givebaton")?.setExecutor(GiveBaton())
+        plugin.getCommand("bee")?.setExecutor(Bee())
+        plugin.getCommand("discord")?.setExecutor(DiscordCommand())
     }
 
     override fun onDisable() {
         // update and save config
-        config!!["givebaton"] = baton
-        config!!["hardcore"] = hardcore
-        config!!["announceDeath"] = announceDeath
+        config["givebaton"] = baton
+        config["hardcore"] = hardcore
+        config["announceDeath"] = announceDeath
 
         try {
-            config?.save("${plugin?.dataFolder}/config.yml")
+            config.save("${plugin?.dataFolder}/config.yml")
         } catch (e: IOException) {
             e.printStackTrace()
         }
@@ -80,7 +82,7 @@ class Plugin : TCPluginComponent {
         try {
             discord?.exitDiscord()
         } catch (ex: InterruptedException) {
-            logger?.severe("Could not shutdown discord")
+            logger.severe("Could not shutdown discord")
         }
     }
 }

@@ -3,18 +3,19 @@ package org.qrl.tcplugin
 import nz.laspruca.tcplugin.Plugin
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.event.Listener
+import org.bukkit.plugin.java.JavaPlugin
 import java.util.logging.Logger
 
-class TCPlugin : org.bukkit.plugin.java.JavaPlugin() {
+
+class TCPlugin : JavaPlugin() {
     var compoents: List<TCPluginComponent> = listOf(
         Plugin()
     )
 
-
     companion object {
-        var plugin: TCPlugin? = null
-        var config: FileConfiguration? = null
-        var logger: Logger? = null
+        lateinit var plugin: TCPlugin
+        lateinit var config: FileConfiguration
+        lateinit var logger: Logger
     }
 
     override fun onEnable() {
@@ -35,7 +36,7 @@ class TCPlugin : org.bukkit.plugin.java.JavaPlugin() {
         }
     }
 
-    fun registerEvent(e: Listener?) {
-        server.pluginManager.registerEvents(e!!, this)
+    fun registerEvent(e: Listener) {
+        server.pluginManager.registerEvents(e, this)
     }
 }

@@ -18,22 +18,22 @@ private var placeBlocks: MutableList<Material> = ArrayList()
 
 
 fun loadBlocks() {
-    val `break` = config!!.getStringList("blocks-break")
+    val `break` = config.getStringList("blocks-break")
     for (a in `break`) {
         try {
             breakBlocks.add(Material.valueOf(a.toUpperCase()))
         } catch (e: Exception) {
-            logger?.warning("Invalid block in config $a")
+            logger.warning("Invalid block in config $a")
         }
     }
 
     breakBlocks.add(Material.CHEST)
-    val place = config!!.getStringList("place-break")
+    val place = config.getStringList("place-break")
     for (a in place) {
         try {
             placeBlocks.add(Material.valueOf(a.toUpperCase()))
         } catch (e: Exception) {
-            logger?.warning("Invalid block in config $a")
+            logger.warning("Invalid block in config $a")
         }
     }
 }
