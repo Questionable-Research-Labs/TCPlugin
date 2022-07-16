@@ -37,21 +37,17 @@ object CropHarvestEvent : Listener {
                             var dropAmount = drop.amount
                             for (slot in inv.contents) {
                                 if (slot != null && slot.type == drop.type) {
-                                    logger.info("Gaming")
                                     val slotAmount = slot.amount
                                     if (slotAmount + dropAmount > 64) {
-                                        logger.info("Setting drop amount to 64 with remainder")
                                         slot.amount = 64
                                         dropAmount = slotAmount + dropAmount - 64
                                     } else {
-                                        logger.info("Setting drop amount to " + (slotAmount + dropAmount))
                                         slot.amount = slotAmount + dropAmount
                                         dropAmount = 0
                                     }
-                                    logger.info("Done cycle, drop amount is $dropAmount")
                                 }
                             }
-                            logger.info("Drop amount for " + drop.type + " is " + dropAmount)
+
                             if (dropAmount > 0) {
                                 val nextFree = inv.firstEmpty()
                                 drop.amount = dropAmount
@@ -61,7 +57,6 @@ object CropHarvestEvent : Listener {
                                     inv.setItem(nextFree, drop)
                                 }
                             }
-                            logger.info("Droped items")
                         }
 
                         val data = player.server.createBlockData(block.type)
