@@ -10,11 +10,10 @@ class TCPlugin : org.bukkit.plugin.java.JavaPlugin() {
         Plugin()
     )
 
-
     companion object {
-        var plugin: TCPlugin? = null
-        var config: FileConfiguration? = null
-        var logger: Logger? = null
+        lateinit var plugin: TCPlugin
+        lateinit var config: FileConfiguration
+        lateinit var logger: Logger
     }
 
     override fun onEnable() {
@@ -35,7 +34,7 @@ class TCPlugin : org.bukkit.plugin.java.JavaPlugin() {
         }
     }
 
-    fun registerEvent(e: Listener?) {
-        server.pluginManager.registerEvents(e!!, this)
+    fun registerEvent(e: Listener) {
+        server.pluginManager.registerEvents(e, this)
     }
 }

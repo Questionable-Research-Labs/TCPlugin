@@ -1,27 +1,24 @@
 package nz.laspruca.tcplugin.commands
 
-import net.kyori.adventure.audience.MessageType
-import net.kyori.adventure.identity.Identity
-import net.kyori.adventure.text.Component
-import net.kyori.adventure.text.TextComponent
-import net.kyori.adventure.text.event.ClickEvent
-import org.bukkit.ChatColor
+import net.md_5.bungee.api.ChatColor.*
+import net.md_5.bungee.api.chat.ClickEvent
+import net.md_5.bungee.api.chat.HoverEvent
+import net.md_5.bungee.api.chat.TextComponent
+import net.md_5.bungee.api.chat.hover.content.Text
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
-import net.kyori.adventure.text.event.HoverEvent
 
 import org.bukkit.command.CommandExecutor
 
-fun generateText(): TextComponent {
-    return Component.text("${ChatColor.BLUE}${ChatColor.BOLD}Join the Technocraft Discord Server!")
-        .hoverEvent(HoverEvent.showText(Component.text("${ChatColor.BLUE}${ChatColor.BOLD}Click to join discord")))
-        .clickEvent(ClickEvent.openUrl("https://discord.gg/8F7RpsG"))
-
+fun generateText(): TextComponent = TextComponent(BLUE.toString() + BOLD.toString() + "Join the Technocraft Discord Server!").apply {
+    clickEvent = ClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/8F7RpsG");
+    hoverEvent = HoverEvent(HoverEvent.Action.SHOW_TEXT, Text("Click to join discord\n"));
 }
+
 
 class DiscordCommand : CommandExecutor {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
-        sender.sendMessage(Identity.nil(), generateText(), MessageType.CHAT)
+        sender.spigot().sendMessage(generateText())
         return true
     }
 }

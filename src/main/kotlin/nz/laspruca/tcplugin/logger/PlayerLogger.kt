@@ -13,14 +13,14 @@ import java.io.IOException
  * Initializes the logger
  */
 fun init() {
-    File("${plugin!!.dataFolder}/logs").mkdir()
+    File("${plugin.dataFolder}/logs").mkdir()
 }
 
 /**
  * Used to log append a message to a players log file
  */
 private fun logEvent(playerName: String, msg: String) {
-    val f = File("${plugin!!.dataFolder}/logs/$playerName.txt}")
+    val f = File("${plugin.dataFolder}/logs/$playerName.txt}")
     try {
         f.createNewFile()
 
@@ -55,7 +55,7 @@ abstract class LoggerEvent (private val player: String) {
  */
 class BreakBlockEvent(player: String, block: Block) : LoggerEvent(player) {
     init {
-        result += "Break ${block.type} @ {X: ${block.location.blockX}, Y: ${block.location.blockY}, Z: ${block.location.blockZ}}}"
+        result += "Break ${block.type} @ (${block.location.blockX} ${block.location.blockY} ${block.location.blockZ})"
     }
 }
 
@@ -64,7 +64,7 @@ class BreakBlockEvent(player: String, block: Block) : LoggerEvent(player) {
  */
 class PlaceBlockEvent(player: String, block: Block) : LoggerEvent(player) {
     init {
-        result += "Place ${block.type} @ {X: ${block.location.blockX}, Y: ${block.location.blockY}, Z: ${block.location.blockZ}}}"
+        result += "Place ${block.type} @ (${block.location.blockX} ${block.location.blockY} ${block.location.blockZ})"
     }
 }
 
@@ -73,7 +73,7 @@ class PlaceBlockEvent(player: String, block: Block) : LoggerEvent(player) {
  */
 class InventoryInteractEvent(player: String, inv: Inventory) : LoggerEvent(player) {
     init {
-        result += "Break ${inv.type} @ {X: ${inv.location?.blockX}, Y: ${inv.location?.blockY}, Z: ${inv.location?.blockZ}}}\n"
+        result += "Break ${inv.type} @ (${inv.location?.blockX} ${inv.location?.blockY} ${inv.location?.blockZ})\n"
 
     }
 

@@ -1,6 +1,6 @@
 package nz.laspruca.tcplugin.commands
 
-import net.kyori.adventure.text.Component
+import net.md_5.bungee.api.ChatColor.*
 import nz.laspruca.tcplugin.Plugin.Companion.baton
 import org.bukkit.ChatColor
 import org.bukkit.enchantments.Enchantment
@@ -18,27 +18,26 @@ import java.lang.Exception
 class GiveBaton() : CommandExecutor {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (baton) {
-            var argslen = 0
-            for (str: String? in args) {
-                argslen++
-            }
-            if (argslen < 1) {
-                plugin!!.server.getPlayer(sender.name)!!.inventory
+            if (args.isEmpty()) {
+                plugin.server.getPlayer(sender.name)!!.inventory
                     .addItem(makeBonkyBoi())
             } else {
                 for (str: String in args) {
-                    if (str == "@a") {
-                        for (player: Player in plugin!!.server.onlinePlayers) {
-                            player.inventory.addItem(makeBonkyBoi())
+                    when (str) {
+                        "@a" -> {
+                            for (player: Player in plugin.server.onlinePlayers) {
+                                player.inventory.addItem(makeBonkyBoi())
+                            }
                         }
-                    } else if (str == "@p") {
-                        plugin!!.server.getPlayer(sender.name)!!.inventory
-                            .addItem(makeBonkyBoi())
-                    } else {
-                        try {
-                            plugin!!.server.getPlayer(str)!!.inventory.addItem(makeBonkyBoi())
-                        } catch (ignored: Exception) {
-                            sender.sendMessage("Unable to find player $str")
+                        "@p" -> {
+                            plugin.server.getPlayer(sender.name)?.inventory?.addItem(makeBonkyBoi())
+                        }
+                        else -> {
+                            try {
+                                plugin.server.getPlayer(str)?.inventory?.addItem(makeBonkyBoi())
+                            } catch (_: Exception) {
+                                sender.sendMessage("Unable to find player $str")
+                            }
                         }
                     }
                 }
@@ -50,17 +49,18 @@ class GiveBaton() : CommandExecutor {
         }
         return true
     }
+}
 
-    private fun makeBonkyBoi(): ItemStack {
-        val `is` = ItemStack(Material.STICK, 1)
-        val im = `is`.itemMeta
-        val lore = ArrayList<Component>()
-        lore.add(Component.text("THIS IS YOUR OFFICIAL TECHNOCRAFT POLICE DPT BATON"))
-        lore.add(Component.text("HAVE FUN"))
-        im.lore(lore)
-        im.addEnchant(Enchantment.KNOCKBACK, 1000, true)
-        im.displayName(Component.text(ChatColor.BLUE.toString() + ChatColor.BOLD.toString().toString() + "TCPD Baton"))
-        `is`.itemMeta = im
-        return `is`
+private fun makeBonkyBoi(): ItemStack {
+    val itemStack = ItemStack(Material.STICK, 1)
+    itemStack.itemMeta = itemStack.itemMeta?.apply  {
+        this.lore = ArrayList<String>().apply {
+            add("THIS IS YOUR OFFICIAL TECHNOCRAFT POLICE DPT BATON")
+            add("HAVE FUN")
+        }
+        addEnchant(Enchantment.KNOCKBACK, 1000, true)
+        setDisplayName("$BLUE${BOLD}TCPD Batton")
     }
+
+    return itemStack
 }

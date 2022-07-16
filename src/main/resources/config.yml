@@ -39,3 +39,11 @@ prefix: "setme"
 
 # Weather givebaton is enabled or disabled
 givebaton: true
+
+# The crops you want harvesting enabled on
+crops:
+  - WHEAT_SEEDS
+  - POTATO
+  - CARROT
+  - NETHER_WART
+  - BEETROOT_SEEDS

@@ -1,25 +1,20 @@
 package nz.laspruca.tcplugin
 
-import net.kyori.adventure.audience.MessageType
-import net.kyori.adventure.identity.Identity
 import nz.laspruca.tcplugin.commands.Bee
 import nz.laspruca.tcplugin.commands.DiscordCommand
 import nz.laspruca.tcplugin.commands.GiveBaton
-import nz.laspruca.tcplugin.commands.generateText
-import nz.laspruca.tcplugin.discord.Discord
 import nz.laspruca.tcplugin.eventListeners.PlayerJoinLeave
 import nz.laspruca.tcplugin.eventListeners.loadBlocks
+import nz.laspruca.tcplugin.eventListeners.loadCrops
 import nz.laspruca.tcplugin.logger.init
-import org.bukkit.scheduler.BukkitRunnable
 import org.qrl.tcplugin.TCPlugin.Companion.config
-import org.qrl.tcplugin.TCPlugin.Companion.logger
 import org.qrl.tcplugin.TCPlugin.Companion.plugin
 import org.qrl.tcplugin.TCPluginComponent
 import java.io.IOException
 
 class Plugin : TCPluginComponent {
     companion object {
-        var discord: Discord? = null
+//        var discord: Discord? = null
         var baton = false
         var hardcore = false
         var announceDeath = false
@@ -29,58 +24,69 @@ class Plugin : TCPluginComponent {
         init()
 //        discord = Discord()
 
-        plugin?.registerEvent(PlayerJoinLeave)
-        plugin?.registerEvent(nz.laspruca.tcplugin.eventListeners.InventoryInteract)
-        plugin?.registerEvent(nz.laspruca.tcplugin.eventListeners.BlockPlaceBreak)
-        plugin?.registerEvent(nz.laspruca.tcplugin.eventListeners.PlayerDie)
+        with(plugin) {
+            // Register event listeners
+            registerEvent(PlayerJoinLeave)
+            registerEvent(nz.laspruca.tcplugin.eventListeners.InventoryInteract)
+            registerEvent(nz.laspruca.tcplugin.eventListeners.BlockPlaceBreak)
+            registerEvent(nz.laspruca.tcplugin.eventListeners.PlayerDie)
+            registerEvent(nz.laspruca.tcplugin.eventListeners.YouDoNotRecogniseTheBodiesInTheWater)
+            registerEvent(nz.laspruca.tcplugin.eventListeners.CropHarvestEvent)
+
+            // Register command executors
+            getCommand("givebaton")?.setExecutor(GiveBaton())
+            getCommand("bee")?.setExecutor(Bee())
+            getCommand("discord")?.setExecutor(DiscordCommand())
+        }
+
+        // Load config stuff
+        with(config) {
+            baton = getBoolean("givebaton")
+            hardcore = getBoolean("hardcore")
+            announceDeath = getBoolean("announceDeath")
+        }
 
         loadBlocks()
-
-        baton = config!!.getBoolean("givebaton")
-        hardcore = config!!.getBoolean("hardcore")
-        announceDeath = config!!.getBoolean("announceDeath")
+        loadCrops()
 
         // Create event to notify people that they can join the discord if they are not already
 
         // Create event to notify people that they can join the discord if they are not already
-        object : BukkitRunnable() {
-            override fun run() {
-                try {
-                    val discordUsers = discord!!.getMembers()
-                    for (player in plugin!!.server.onlinePlayers) {
-                        if (!discordUsers.contains(player.name)) {
-                            player.sendMessage(Identity.nil(), generateText(), MessageType.CHAT)
-                        }
-                    }
-                } catch (ex: IllegalStateException) {
-                    // This happens if discord failed to init
-                    ex.printStackTrace()
-                }
-            }
-        }.runTaskTimerAsynchronously(plugin!!, 36000, 36000)
-
-        plugin?.getCommand("givebaton")?.setExecutor(GiveBaton())
-        plugin?.getCommand("bee")?.setExecutor(Bee())
-        plugin?.getCommand("discord")?.setExecutor(DiscordCommand())
+//        object : BukkitRunnable() {
+//            override fun run() {
+//                try {
+//
+//                    val discordUsers = discord!!.getMembers()
+//                    for (player in plugin.server.onlinePlayers) {
+//                        if (!discordUsers.contains(player.name)) {
+//                            player.sendMessage(Identity.nil(), generateText(), MessageType.CHAT)
+//                        }
+//                    }
+//                } catch (ex: IllegalStateException) {
+//                    // This happens if discord failed to init
+//                    ex.printStackTrace()
+//                }
+//            }
+//        }.runTaskTimerAsynchronously(plugin, 36000, 36000)
     }
 
     override fun onDisable() {
         // update and save config
-        config!!["givebaton"] = baton
-        config!!["hardcore"] = hardcore
-        config!!["announceDeath"] = announceDeath
+        config["givebaton"] = baton
+        config["hardcore"] = hardcore
+        config["announceDeath"] = announceDeath
 
         try {
-            config?.save("${plugin?.dataFolder}/config.yml")
+            config.save("${plugin.dataFolder}/config.yml")
         } catch (e: IOException) {
             e.printStackTrace()
         }
 
         // Shutdown discord
-        try {
-            discord?.exitDiscord()
-        } catch (ex: InterruptedException) {
-            logger?.severe("Could not shutdown discord")
-        }
+//        try {
+//            discord?.exitDiscord()
+//        } catch (ex: InterruptedException) {
+//            logger.severe("Could not shutdown discord")
+//        }
     }
 }

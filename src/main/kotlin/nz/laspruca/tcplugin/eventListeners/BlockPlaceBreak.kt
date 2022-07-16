@@ -13,29 +13,28 @@ import org.qrl.tcplugin.TCPlugin.Companion.logger
 import java.lang.Exception
 import java.util.ArrayList
 
-private var breakBlocks: MutableList<Material> = ArrayList()
-private var placeBlocks: MutableList<Material> = ArrayList()
+private var breakBlocks: List<Material> = ArrayList()
+private var placeBlocks: List<Material> = ArrayList()
 
 
 fun loadBlocks() {
-    val `break` = config!!.getStringList("blocks-break")
-    for (a in `break`) {
+    breakBlocks = config.getStringList("blocks-break").mapNotNull {
         try {
-            breakBlocks.add(Material.valueOf(a.toUpperCase()))
-        } catch (e: Exception) {
-            logger?.warning("Invalid block in config $a")
+            Material.valueOf(it.toUpperCase())
+        } catch (_: java.lang.IllegalArgumentException) {
+            logger.warning("No material for $it")
+            null
         }
-    }
+    }.toList()
 
-    breakBlocks.add(Material.CHEST)
-    val place = config!!.getStringList("place-break")
-    for (a in place) {
+    placeBlocks = config.getStringList("place-break").mapNotNull {
         try {
-            placeBlocks.add(Material.valueOf(a.toUpperCase()))
-        } catch (e: Exception) {
-            logger?.warning("Invalid block in config $a")
+            Material.valueOf(it.toUpperCase())
+        } catch (_: java.lang.IllegalArgumentException) {
+            logger.warning("No material for $it")
+            null
         }
-    }
+    }.toList()
 }
 
 object BlockPlaceBreak : Listener {

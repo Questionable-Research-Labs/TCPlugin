@@ -7,7 +7,7 @@ plugins {
 }
 
 group = 'org.qrl'
-version = '2.1'
+version = '3.0'
 
 sourceCompatibility = '16'
 targetCompatibility = '16'
@@ -15,19 +15,14 @@ targetCompatibility = '16'
 repositories {
     mavenCentral()
     maven {
-        name = 'papermc-repo'
-        url = 'https://papermc.io/repo/repository/maven-public/'
-    }
-    maven {
-        name = 'sonatype'
-        url = 'https://oss.sonatype.org/content/groups/public/'
+        name = 'spigotmc-repo'
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
     }
 }
 
 dependencies {
-    compileOnly 'com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT'
-    implementation "org.reflections:reflections:0.9.11"
-    implementation "net.dv8tion:JDA:4.2.0_168"
+    compileOnly 'org.spigotmc:spigot-api:1.19-R0.1-SNAPSHOT'
+//    implementation "net.dv8tion:JDA:5.0.0-alpha.13"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
 
