@@ -6,6 +6,7 @@ import org.bukkit.block.Block
 import org.bukkit.inventory.Inventory
 import org.qrl.tcplugin.TCPlugin.Companion.plugin
 import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
 
 
@@ -20,12 +21,12 @@ fun init() {
  * Used to log append a message to a players log file
  */
 private fun logEvent(playerName: String, msg: String) {
-    val f = File("${plugin.dataFolder}/logs/$playerName.txt}")
+    val f = File("${plugin.dataFolder}/logs/$playerName.txt")
     try {
         f.createNewFile()
 
-        f.bufferedWriter().use {
-            it.append("\n$msg")
+        FileOutputStream(f, true).bufferedWriter().use {
+            it.write("\n$msg")
         }
     } catch (e: IOException) {
         e.printStackTrace()

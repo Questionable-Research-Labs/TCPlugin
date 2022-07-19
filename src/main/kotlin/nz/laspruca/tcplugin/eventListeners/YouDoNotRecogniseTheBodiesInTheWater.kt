@@ -13,7 +13,14 @@ object YouDoNotRecogniseTheBodiesInTheWater : Listener {
     @EventHandler
     fun iRecogniseTheBodiesInTheWater(e: AsyncPlayerChatEvent) {
         with(e) {
-            if ("i recognise the bodies in the water" in message.toLowerCase()) {
+            val message = message.toLowerCase()
+            if ("recognise" in message
+                && "the water" in message
+                && "in" in message
+                && "bodies" in message
+                && "don't" !in message
+                && "do not" !in message
+            ) {
                 Bukkit.getScheduler().runTask(plugin, Runnable {
                     player.playSound(player.location, Sound.BLOCK_BELL_USE, 200.0f, -100f)
                     player.damage(420.69)
