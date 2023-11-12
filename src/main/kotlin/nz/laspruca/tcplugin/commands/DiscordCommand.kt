@@ -11,7 +11,7 @@ import org.bukkit.command.CommandSender
 import org.bukkit.command.CommandExecutor
 
 fun generateText(): TextComponent = TextComponent(BLUE.toString() + BOLD.toString() + "Join the Technocraft Discord Server!").apply {
-    clickEvent = ClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/8F7RpsG");
+    clickEvent = ClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/uRxTBzpbF");
     hoverEvent = HoverEvent(HoverEvent.Action.SHOW_TEXT, Text("Click to join discord\n"));
 }
 

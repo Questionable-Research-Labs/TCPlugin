@@ -5,8 +5,12 @@ import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.event.Listener
 import java.util.logging.Logger
 
+
+
+
+
 class TCPlugin : org.bukkit.plugin.java.JavaPlugin() {
-    var compoents: List<TCPluginComponent> = listOf(
+    var components: List<TCPluginComponent> = listOf(
         Plugin()
     )
 
@@ -23,13 +27,13 @@ class TCPlugin : org.bukkit.plugin.java.JavaPlugin() {
 
         saveDefaultConfig()
 
-        for (component in compoents) {
+        for (component in components) {
             component.onEnable()
         }
     }
 
     override fun onDisable() {
-        for (component in compoents) {
+        for (component in components) {
             component.onDisable()
         }
     }

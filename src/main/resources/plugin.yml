@@ -1,10 +1,10 @@
 name: TCPlugin
 version: @version@
 main: org.qrl.tcplugin.TCPlugin
-api-version: 1.16
+api-version: 1.20
 authors: [ LaSpruca ]
 depend: [ AdvancedBan ]
-description: The offical TCPlugin
+description: The official TCPlugin
 website: https://qrl.nz
 commands:
   givebaton:

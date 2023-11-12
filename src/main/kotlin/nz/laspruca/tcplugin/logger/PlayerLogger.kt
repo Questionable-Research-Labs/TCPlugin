@@ -102,6 +102,15 @@ class JoinEvent(player: String) : LoggerEvent(player) {
     }
 }
 
+/*
+* Used to log a player dying
+* */
+class DeathEvent(player: String, cause: String?) : LoggerEvent(player) {
+    init {
+        result += "Died (L) from $cause"
+    }
+}
+
 /**
  * Used to log a player leaving
  */
