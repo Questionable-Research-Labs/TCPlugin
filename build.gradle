@@ -7,10 +7,10 @@ plugins {
 }
 
 group = 'org.qrl'
-version = '3.1'
+version = '3.2'
 
-sourceCompatibility = '21'
-targetCompatibility = '21'
+sourceCompatibility = '17'
+targetCompatibility = '17'
 
 repositories {
     mavenCentral()
@@ -22,7 +22,7 @@ repositories {
 
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT'
-//    implementation "net.dv8tion:JDA:5.0.0-alpha.13"
+    implementation "net.dv8tion:JDA:5.0.0-beta.17"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
 
@@ -34,16 +34,16 @@ processResources {
 }
 compileKotlin {
     kotlinOptions {
-        jvmTarget = "21"
+        jvmTarget = "17"
     }
 }
 compileTestKotlin {
     kotlinOptions {
-        jvmTarget = "21"
+        jvmTarget = "17"
     }
 }
 
 tasks.register('copyJarToBin', Copy) {
-    from 'build/libs/TCPlugin-3.1-all.jar'
+    from 'build/libs/TCPlugin-'+version+'-all.jar'
     into "test-server/plugins/"
 }
