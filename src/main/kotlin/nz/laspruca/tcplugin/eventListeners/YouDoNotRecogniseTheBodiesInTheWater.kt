@@ -13,7 +13,7 @@ object YouDoNotRecogniseTheBodiesInTheWater : Listener {
     @EventHandler
     fun iRecogniseTheBodiesInTheWater(e: AsyncPlayerChatEvent) {
         with(e) {
-            val message = message.toLowerCase()
+            val message = message.lowercase()
             if ("recognise" in message
                 && "the water" in message
                 && "in" in message
